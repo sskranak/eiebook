@@ -14,7 +14,16 @@ Type Definitions
 /***********************************************************************************************************************
 * Constants
 ***********************************************************************************************************************/
-
+#define OSC_VALUE                 (u32)12000000                              /*!< @brief Crystal oscillator value */
+#define MAINCK                    OSC_VALUE                                  /*!< @brief Main clock is base crystal frequency */
+#define MULA                      (u32)7                                     /*!< @brief PLL multiplier */
+#define DIVA                      (u32)1                                     /*!< @brief PLL divider value */
+#define PLLACK_VALUE              (u32)(MAINCK * (MULA + 1)) / DIVA          /*!< @brief PLL scaled clock is 96 MHz */
+#define CPU_DIVIDER               (u32)2                                     /*!< @brief Divider to get CPU clock */
+#define CCLK_VALUE                PLLACK_VALUE / CPU_DIVIDER                 /*!< @brief CPU clock 48 MHz */
+#define MCK                       CCLK_VALUE                                 /*!< @brief Alternate name for CPU clock 48 MHz */
+#define PERIPHERAL_DIVIDER        (u32)1                                     /*!< @brief Peripheral clock divider */
+#define PCLK_VALUE                CCLK_VALUE / PERIPHERAL_DIVIDER            /*!< @brief Peripheral clock 48 MHz */
 
 
 /***********************************************************************************************************************
@@ -35,13 +44,17 @@ the watchdog countdown timer*/
 /*------------------------------------------------------------------------------------------------------------------*/
 /*! @protectedsection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
-
+void WatchDogSetup(void);
+void ClockSetup(void);
+void GpioSetup(void);
+void SystemSleep(void);
 
 /***********************************************************************************************************************
 !!!!! GPIO pin names
 ***********************************************************************************************************************/
 /* Hardware Definition for PCB EIEF1-PCB-01 */
-
+/* Port A positions*/
+#define PA_31_HEARTBEAT     (u32)0x80000000
 
 
 /*! @cond DOXYGEN_EXCLUDE */
