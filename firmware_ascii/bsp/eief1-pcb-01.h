@@ -31,6 +31,8 @@ Type Definitions
 ***********************************************************************************************************************/
 #define WATCHDOG_BONE() (AT91C_BASE_WDTC->WDTC_WDCR = WDT_CR_FEED) /* reloads
 the watchdog countdown timer*/
+#define HEARTBEAT_ON()    (AT91C_BASE_PIOA->PIO_CODR = PA_31_HEARTBEAT) /*!< @brief Turns on HEARTBEAT LED */
+#define HEARTBEAT_OFF()    (AT91C_BASE_PIOA->PIO_SODR = PA_31_HEARTBEAT)  /*!< @brief Turns off HEARTBEAT LED  */
 
 /***********************************************************************************************************************
 * Function Declarations

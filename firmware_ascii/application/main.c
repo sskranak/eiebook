@@ -4,7 +4,7 @@
 ***********************************************************************************************************************/
 
 #include "configuration.h"
-
+extern void kill_x_cycles(u32);
 /***********************************************************************************************************************
 Global variable definitions with scope across entire project.
 All Global variable names shall start with "G_"
@@ -33,6 +33,7 @@ Variable names shall start with "Main_" and be declared as static.
 
 void main(void)
 {
+ 
   /* Low Level Initialization */
   WatchDogSetup(); 
   ClockSetup();
@@ -41,11 +42,13 @@ void main(void)
   while (1)
   {
     WATCHDOG_BONE();
-    
+   
     /* System sleep */
+    HEARTBEAT_OFF();
     do{
       SystemSleep();
     } while(G_u32SystemFlags & _SYSTEM_SLEEPING);
+    HEARTBEAT_ON();
   }
   /* end while (1) main super loop*/
   

@@ -34,7 +34,9 @@ All Global variable names shall start with "G_xxBsp"
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
-
+extern volatile u32 G_u32SystemTime1ms; /*!< @brief From main.c */
+extern volatile u32 G_u32SystemTime1s; /*!< @brief From main.c */
+extern volatile u32 G_u32SystemFlags; /*!< @brief From main.c */
 
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -42,11 +44,7 @@ Variable names shall start with "Bsp_" and be declared as static.
 ***********************************************************************************************************************/
 /* New Variables */
 
-/*--------------------------------------------------------------------------------------------------------------------*/
-/* Existing variables from other files -- must contain the "extern" keyword */
-extern volatile u32 G_u32SystemTime1ms; /*!< @brief From main.c */
-extern volatile u32 G_u32SystemTime1s; /*!< @brief From main.c */
-extern volatile u32 G_u32SystemFlags; /*!< @brief From main.c */
+
 /***********************************************************************************************************************
 Function Definitions
 ***********************************************************************************************************************/
