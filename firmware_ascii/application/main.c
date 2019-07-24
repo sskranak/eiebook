@@ -31,10 +31,25 @@ Variable names shall start with "Main_" and be declared as static.
 
 void main(void)
 {
+  /* Low Level Initialization */
+ 
+  /* Super Loop */
+  while (1)
+  {
+    WATCHDOG_BONE();
+  }
+  /* end while (1) main super loop*/
+  
   
 } /* end main() */
 
-
+void ClockSetup(void){
+/* set flash wait states to allow 48 MHz system clock (2 wait states required)*/
+  AT91C_BASE_EFC0 -> EFC_FMR = AT91C_EFC_FWS_2WS;
+  
+  /* activatge the peripheral clocks needed for the system */
+  AT91_Base_PMC ->PMC_PCER = PMC_PCER_INIT; 
+} /* end clock setup */
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
