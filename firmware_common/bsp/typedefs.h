@@ -61,6 +61,15 @@ typedef void(*fnCode_type)(void);      /*!< @brief EiE standard variable type na
 typedef enum {FALSE = 0, TRUE = !FALSE} bool;  /*!< @brief EiE standard variable type name for boolean */
 #endif
 
+typedef enum {PORTA = 0, PORTB = 0x80} PortOffsetType;
+typedef enum {ACTIVE_LOW = 0, ACTIVE_HIGH = 1} GpioActiveType;
+
+typedef struct
+{
+  u32 u32BitPosition;           /*!< @brief Pin position in the port*/
+  PortOffsetType ePort;         /*!< @brief Pin port position*/
+  GpioActiveType eActiveState;  /*!< @brief Pin hardware active type*/
+}PinConfigurationType;
 
 #endif /* __TYPEDEFS_H */
 
