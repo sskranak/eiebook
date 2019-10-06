@@ -183,6 +183,28 @@ void LedToggle(LedNameType eLED_)
 	Led_asControl[(u8)eLED_].eMode = LED_NORMAL_MODE;
 
 } /* end LedToggle() */
+
+/*!----------------------------------------------------------------------------------------------------------------------
+@fn void LedBlink(LedNameType eLED_, LedRateType eBlinkRate_)
+
+@brief Sets eLED_ to LED_BLINK_MODE with the rate given
+
+Requires:
+@param eLED_ is a valid LED index
+@param eBlinkRate_ is an allowed blinking Rate from LedRateType
+
+Promises:
+- eLED_ is set to LED_BLINK_MODE at the blink rate specified
+
+*/
+
+void LedBlink(LedNameType eLED_, LedRateType eBlinkRate_)
+{
+  Led_asControl[(u8)eLED_].eMode = LED_BLINK_MODE;
+  Led_asControl[(u8)eLED_].eRate = eBlinkRate_;
+  Led_asControl[(u8)eLED_].u16Count = eBlinkRate_;
+  
+}/*end LedBlink()*/ 
 /*!----------------------------------------------------------------------------------------------------------------------
 @fn void LedInitialize(void)
 
@@ -218,9 +240,9 @@ void LedInitialize(void)
   LedOff(BLUE);
   LedOff(CYAN);
   LedToggle(GREEN);
-  LedToggle(RED);
   LedToggle(YELLOW);
   LedToggle(ORANGE);
+  LedToggle(RED);
   
   /* If good initialization, set state to Idle */
   if( 1 )
@@ -271,11 +293,27 @@ State Machine Declarations
 /*!-------------------------------------------------------------------------------------------------------------------
 @fn static void LedSM_Idle(void)
 
-@brief What does this function do?
+@brief Run through allof the LEDs to check for blinking updates
+
 */
 static void LedSM_Idle(void)
 {
- 
+  u32 *pu32Address;
+  
+  /*Loop through each LED to check for blinkers*/
+  for(u8 i = 0; i < U8_TOTAL_LEDS; i++){
+    /*Check if LED is in LED_BLINK_MODE*/
+    if(Led_asControl[(LedNameType)i].eMode == LED_BLINK_MODE){
+      /*Decrement Counter and check for 0*/
+      if(--Led_asControl[(LedNameType)i].u16Count == 0){
+        /*Toggle and reload the LED*/
+        pu32Address = (u32*)(&(AT91C_BASE_PIOA->PIO_ODSR) + 
+                              G_asBspLedConfigurations[(LedNameType)i].ePort);
+        *pu32Address ^= G_asBspLedConfigurations[(LedNameType)i].u32BitPosition;
+      }
+     }
+    }/*end of for loop*/ 
+  
 } /* end LedSM_Idle() */
 
 

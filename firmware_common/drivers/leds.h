@@ -51,6 +51,7 @@ void LedRunActiveState(void);
 void LedOn(LedNameType eLED_);
 void LedOff(LedNameType eLED_);
 void LedToggle(LedNameType eLED_);
+void LedBlink(LedNameType eLED_, LedRateType eBlinkRate_);
 /*------------------------------------------------------------------------------------------------------------------*/
 /*! @privatesection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
