@@ -40,12 +40,16 @@ void main(void)
   WatchDogSetup(); 
   ClockSetup();
   GpioSetup();
+  /*Application Initialization*/
+  UserApp1Initialize();
   
   /* Super loop */  
   while(1)
   {
     WATCHDOG_BONE();
-        
+    /*Applications*/
+    UserApp1RunActiveState();
+    
     /* System sleep */
     HEARTBEAT_OFF();
     do
