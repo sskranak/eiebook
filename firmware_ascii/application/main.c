@@ -42,6 +42,8 @@ void main(void)
   GpioSetup();
   /*Application Initialization*/
   UserApp1Initialize();
+  /*Driver Initialization*/
+  LedInitialize();
   
   /* Super loop */  
   while(1)
@@ -49,7 +51,8 @@ void main(void)
     WATCHDOG_BONE();
     /*Applications*/
     UserApp1RunActiveState();
-    
+    /*Drivers*/
+    LedRunActiveState();
     /* System sleep */
     HEARTBEAT_OFF();
     do

@@ -33,6 +33,20 @@ All Global variable names shall start with "G_xxBsp"
 ***********************************************************************************************************************/
 /* New variables */
 
+/*! LED locations: order must correspond to the order set in LedNameType in the header file. */
+const LedConfigurationType G_asBspLedConfigurations[U8_TOTAL_LEDS] = { {PB_13_LED_WHT, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_14_LED_PRP, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_18_LED_BLU, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_16_LED_CYN, LED_PORTB, LED_ACTIVE_HIGH},
+                                                                       {PB_19_LED_GRN, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_17_LED_YLW, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_15_LED_ORG, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_20_LED_RED, LED_PORTB, LED_ACTIVE_HIGH},
+                                                                       {PB_10_LCD_BL_RED, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_11_LCD_BL_GRN, LED_PORTB, LED_ACTIVE_HIGH}, 
+                                                                       {PB_12_LCD_BL_BLU, LED_PORTB, LED_ACTIVE_HIGH} 
+                                                                     };
+
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */
@@ -190,7 +204,7 @@ void GpioSetup(void)
   AT91C_BASE_PIOB->PIO_ABSR   = PIOB_ABSR_INIT;
   AT91C_BASE_PIOB->PIO_SCIFSR = PIOB_SCIFSR_INIT;
   AT91C_BASE_PIOB->PIO_DIFSR  = PIOB_DIFSR_INIT;
-  AT91C_BASE_PIOB->PIO_SCDR   = PIOB_SCDR_INIT; 
+  AT91C_BASE_PIOB->PIO_SCDR   = PIOB_SCDR_INIT;
   
 } /* end GpioSetup() */
 

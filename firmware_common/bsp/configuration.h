@@ -39,11 +39,12 @@ Includes
 #include "typedefs.h"
 
 /* Common driver header files */
-
+#include "leds.h"
 /* EIEF1-PCB-01 specific header files */
 #ifdef EIE1
 #include "eief1-pcb-01.h"
 #endif /* EIE1 */
+#include "leds.h"
 
 #ifdef MPGL2
 /* MPGL2-specific header files */
