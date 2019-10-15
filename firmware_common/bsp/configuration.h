@@ -54,6 +54,8 @@ Includes
 
 /* Common driver header files */
 #include "leds.h" 
+#include "buttons.h"
+
 
 /* Common application header files */
 #include "user_app1.h"
