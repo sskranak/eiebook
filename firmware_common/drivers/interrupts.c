@@ -77,8 +77,30 @@ void InterruptSetup(void){
   }
   
 }/*End of InterruptSetup(void)*/
+/*!-------------------------------------------------------------------------------------------------------------------
+@fn ISR void PIOA_IrqHandler(void)
+@brief Parses the PORTA GPIO interrupts and handles them appropriately
 
+Note that all PORTA GPIO interrupts are ORed and will trigger this handler,
+so any expected interrupt tht is enabled must be parsed out and handled
 
+Requires: 
+- The button IO bits match the interrupt flag location
+
+Promises: 
+- Buttons: Sets the active button's debouncing flag, clears the interrupt
+  and initializes the button's debounce timer.
+*/
+void PIOA_IrqHandler(void){
+  /*Clear the PIOA pending flag and exit*/
+  NVIC_ClearPendingIRQ(IRQn_PIOA);
+ 
+} /*end PIOA_IrqHandler()*/
+void PIOB_IrqHandler(void){
+  /*Clear the PIOB pending flag and exit*/
+  NVIC_ClearPendingIRQ(IRQn_PIOB);
+ 
+} /*end PIOB_IrqHandler()*/
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* End of File */
 /*--------------------------------------------------------------------------------------------------------------------*/

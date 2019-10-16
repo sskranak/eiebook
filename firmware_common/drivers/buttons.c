@@ -79,8 +79,32 @@ Promises:
 */
 void ButtonInitialize(void)
 {
-
-
+  /*Setup default data for all the buttons in the system*/
+  for (u8 i = 0; i < U8_TOTAL_BUTTONS; i++){
+    Button_asStatus[i].bNewPressFlag = FALSE;
+    Button_asStatus[i].eCurrentState = RELEASED;
+    Button_asStatus[i].eNewState = RELEASED;
+    Button_asStatus[i].u32TimeStamp = 0;
+  }
+  
+  /* Enable PIO interrupts*/
+  AT91C_BASE_PIOA->PIO_IER = GPIOA_BUTTONS;
+  AT91C_BASE_PIOB->PIO_IER = GPIOB_BUTTONS;
+  
+  /* Dummy code to read the ISR registers and clear the flags*/
+  u32 u32Dummy;
+  u32Dummy = AT91C_BASE_PIOA->PIO_ISR;
+  u32Dummy |= AT91C_BASE_PIOB->PIO_ISR;
+  
+  /* Configure the NVIC to ensure the PIOA nad PIOB interrupts are active*/
+  NVIC_ClearPendingIRQ(IRQn_PIOA);
+  NVIC_ClearPendingIRQ(IRQn_PIOB);
+  NVIC_EnableIRQ(IRQn_PIOA);
+  NVIC_EnableIRQ(IRQn_PIOB);
+  
+  /*Initialization complete: set fiunction pointer and application flag*/
+  Button_pfnStateMachine = ButtonSM_Idle;
+  
 } /* end ButtonInitialize() */
 
 
