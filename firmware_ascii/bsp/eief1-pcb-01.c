@@ -48,29 +48,14 @@ const LedConfigurationType G_asBspLedConfigurations[U8_TOTAL_LEDS] = { {PB_13_LE
                                                                      };
 
 /*! Button locations: order must correspond to ButtonNameType in the header file*/
-const PinConfigurationType G_asBspButtonConfigurations[U8_TOTAL_BUTTONS] = 
-{{PA_17_BUTTON0, PORTA, ACTIVE_LOW}
- {PB_00_BUTTON1, PORTB, ACTIVE_LOW}
- {PB_01_BUTTON2, PORTB, ACTIVE_LOW}
+const ButtonConfigurationType G_asBspButtonConfigurations[U8_TOTAL_BUTTONS] = 
+{{PA_17_BUTTON0, PORTA, ACTIVE_LOW},
+ {PB_00_BUTTON1, PORTB, ACTIVE_LOW},
+ {PB_01_BUTTON2, PORTB, ACTIVE_LOW},
  {PB_02_BUTTON3, PORTB, ACTIVE_LOW}
 };
 
-/*! 
-@enum ButtonStateType
-@brief Self-documenting button state type
-*/
-typedef enum {RELEASED, PRESSED} ButtonStateType;
-/*!
-@struct ButtonStatusType
-@brief Required parameters for the task to track what each button is doing
-*/
-typedef struct
-{
-  ButtonStateType eCurrentState;  /*!<*/
-  ButtonStateType eNewState;      /*!<*/
-  u32 u32TimeStamp;               /*!<*/
-  bool bNewPressFlag;             /*!<*/
-}ButtonStatusType;
+
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /* Existing variables (defined in other files -- should all contain the "extern" keyword) */

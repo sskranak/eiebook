@@ -46,7 +46,7 @@ Global variable definitions with scope limited to this local application.
 Variable names shall start with "Button_xx" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type Button_pfnStateMachine;                  /*!< @brief The Button application state machine function pointer */
-
+static ButtonStatusType Button_asStatus[U8_TOTAL_BUTTONS];
 
 /************ EDIT BOARD-SPECIFIC GPIO DEFINITIONS ABOVE ***************/
 

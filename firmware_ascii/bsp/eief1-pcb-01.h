@@ -75,6 +75,28 @@ typedef enum {BUTTON0 = 0, BUTTON1, BUTTON2, BUTTON3} ButtonNameType;
 #define GPIOA_BUTTONS   (u32)( PA_17_BUTTON0 ) 
 #define GPIOB_BUTTONS   (u32)( PB_00_BUTTON1 | PB_01_BUTTON2 | PB_02_BUTTON3 )
 
+/*! 
+@enum ButtonPortType
+@brief Processor-specific port address offsets.
+*/
+typedef enum {PORTA = 0, PORTB = 0x80} ButtonPortType;
+/*! 
+@enum ButtonActiveType
+@brief Real names for type of LED function.
+*/
+typedef enum {ACTIVE_LOW = 0, ACTIVE_HIGH = 1} ButtonActiveType;      /*!< @enum @brief ACTIVE_HIGH means the LED is on when the pin is at Vcc - hardware dependent */
+
+/*! 
+@struct ButtonConfigurationType
+@brief Button parameters necessary to fully describe an button.
+*/
+
+typedef struct
+{
+  u32 u32BitPosition;             /*!< @brief LED bit position within port */
+  ButtonPortType ePort;              /*!< @brief LED port position */
+  ButtonActiveType eActiveState;     /*!< @brief LED hardware active type */
+}ButtonConfigurationType;
 /***********************************************************************************************************************
 * Constants
 ***********************************************************************************************************************/
