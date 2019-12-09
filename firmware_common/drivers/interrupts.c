@@ -89,7 +89,22 @@ void InterruptSetup(void)
   }
       
 } /* end InterruptSetup(void) */
+/*!----------------------------------------------------------------------------------------------------------------------
+@fn void SysTick_Handler(void)
 
+*/
+void Systick_Handler (void){
+    /* Clear the sleep flag */
+  G_u32SystemFlags &= ~_SYSTEM_SLEEPING;
+  
+  /* Update Timers */
+  G_u32SystemTime1ms++;
+  if( (G_u32SystemTime1ms % 1000) == 0)
+  {
+    G_u32SystemTime1s++;
+  }
+  
+}/*end Systick Handler (Void)*/
   
 /*!----------------------------------------------------------------------------------------------------------------------
 @fn ISR void PIOA_IrqHandler(void)

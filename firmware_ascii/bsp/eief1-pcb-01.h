@@ -102,6 +102,7 @@ void WatchDogSetup(void);
 void ClockSetup(void);
 void GpioSetup(void);
 void SystemSleep(void);
+void SysTickSetup(void);
 
 
 /***********************************************************************************************************************
@@ -441,6 +442,21 @@ Since we want PLLACK at 96 MHz:
     00 [1] "
 */
 
+#define SYSTICK_CTRL_INIT (u32)0x00000003
+/*  Bit Set Description
+    31:20 Reserved
+    19 [0] Reserved
+    18 [0] "
+    17 [0] " 
+    16 [0] Countfalg (read only)
+
+    15-04 [0] reserved
+
+    03 [0] "
+    02 [0] Clock source is CPU clock / 8
+    01 [1] System tick interrupt is on
+    00 [1] System tick is enabled
+*/
 
 /***********************************************************************************************************************
 ##### GPIO setup values

@@ -75,6 +75,7 @@ Function Declarations
 void InterruptSetup(void);
 void PIOA_IrqHandler(void);
 void PIOB_IrqHandler(void);
+void Systick_Handler(void);
 
 
 /*------------------------------------------------------------------------------------------------------------------*/

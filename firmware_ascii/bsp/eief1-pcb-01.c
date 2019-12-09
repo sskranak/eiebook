@@ -84,6 +84,28 @@ Function Definitions
 /*! @protectedsection */                                                                                            
 /*--------------------------------------------------------------------------------------------------------------------*/
 
+
+/*!---------------------------------------------------------------------------------------------------------------------
+@fn void SysTickSetup(void)
+@brief Initializes the 1s and 1ms ticks off the core timer
+
+Requires:
+-NVIC is setup and SysTick handler is installed
+
+Promises:
+-Both global system timers are reset and the SysTick core timer is configured
+*/
+void SysTickSetup(void){
+  G_u32SystemTime1s = 0;
+  G_u32SystemTime1ms = 0;
+  
+  /*Load values into the registers*/
+  AT91C_BASE_NVIC->NVIC_STICKRVR = U32_SYSTICK_COUNT - 1;
+  AT91C_BASE_NVIC->NVIC_STICKCVR = (0x00);
+  AT91C_BASE_NVIC->NVIC_STICKCSR = SYSTICK_CTRL_INIT;
+  
+}/*end SysTickSetup*/
+
 /*!---------------------------------------------------------------------------------------------------------------------
 @fn void WatchDogSetup(void)
 
@@ -238,22 +260,18 @@ Promises:
 */
 void SystemSleep(void)
 {    
+  /*Set the system control register for sleep, not deep sleep*/
+  AT91C_BASE_PMC->PMC_FSMR &= ~AT91C_PMC_LPM;
+  AT91C_BASE_NVIC->NVIC_SCR &= ~AT91C_NVIC_SLEEPDEEP;
+  
   /* Set the sleep flag (which doesn't do anything yet) */
   G_u32SystemFlags |= _SYSTEM_SLEEPING;
-
-  /* Kill the desired number of instructions */
-  kill_x_cycles(48000);
-
-  /* Clear the sleep flag */
-  G_u32SystemFlags &= ~_SYSTEM_SLEEPING;
   
-  /* Update Timers */
-  G_u32SystemTime1ms++;
-  if( (G_u32SystemTime1ms % 1000) == 0)
-  {
-    G_u32SystemTime1s++;
+  /*Now enter the selected LPM*/
+  while(G_u32SystemFlags & _SYSTEM_SLEEPING){
+    __WFI();
   }
-  
+
 } /* end SystemSleep(void) */
 
 
